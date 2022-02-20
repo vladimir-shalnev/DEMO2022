@@ -49,8 +49,13 @@
 
 #### CLI
 
-```powershell
-Rename-Computer -NewName CLI
+```
+в графике 
+      имя CLI
+      ip address 3.3.3.10
+      gateway    3.3.3.1
+      DNS        3.3.3.1
+   reboot
 ```
 
 #### RTR-L
@@ -61,8 +66,9 @@ Rename-Computer -NewName CLI
 apt-cdrom add
 apt install -y network-manager
 ```
-```debian
-   nmtui int WiredConnection 1 (ens192) ip 4.4.4.100/24,gateway 4.4.4.1
+```
+   nmtui 
+         int WiredConnection 1 (ens192) ip 4.4.4.100/24, gateway 4.4.4.1
          int WiredConnection 2 (ens224) ip 192.168.100.254/24 DNS 192.168.100.200 
          hostname RTR-L 
 ```
@@ -77,14 +83,23 @@ apt-cdrom add
 apt install -y network-manager
 ```
 ```debian
-   nmtui int WiredConnection 1 (ens192) ip 5.5.5.100/24,gateway 5.5.51
-         int WiredConnection 2 (ens224) ip 172.16.20.100/24 DNS 
+   nmtui int WiredConnection 1 (ens192) ip 5.5.5.100/24, gateway 5.5.5.1
+         int WiredConnection 2 (ens224) ip 172.16.20.100/24 DNS 192.168.100.200
          hostname RTR-L 
 ```
 
 
 #### SRV
 
+подключить DVD debian-11.2.0-amd64-DVD-1.iso
+
+```debian
+apt-cdrom add
+apt install -y network-manager
+```
+```debian
+   nmtui int WiredConnection 1 (ens192) ip 192.168.100.200/24, gateway 192.168.100.254
+         hostname SRV 
 
 
 
@@ -94,11 +109,10 @@ apt install -y network-manager
 apt-cdrom add
 apt install -y network-manager
 ```
+debian
+   nmtui int WiredConnection 1 (ens192) ip 192.168.100.100/24, gateway 192.168.100.254, DNS 4.4.4.1
+         hostname WEB-L 
 
-```debian
-nmcli connection show
-nmcli connection modify Wired\ connection\ 1 conn.autoconnect yes conn.interface-name ens192 ipv4.method manual 
-ipv4.addresses '192.168.100.100/24' ipv4.dns 192.168.100.200 ipv4.gateway 192.168.100.254
 ```
 
 
@@ -109,12 +123,9 @@ ipv4.addresses '192.168.100.100/24' ipv4.dns 192.168.100.200 ipv4.gateway 192.16
 apt-cdrom add
 apt install -y network-manager
 ```
-
-```debian
-nmcli connection show
-nmcli connection modify Wired\ connection\ 1 conn.autoconnect yes conn.interface-name ens192 ipv4.method manual ipv4.addresses '172.16.100.100/24' ipv4.dns 192.168.100.200 ipv4.gateway 172.16.100.254
+   nmtui int WiredConnection 1 (ens192) ip 127.16.100.100/24, gateway 127.16.100.254, DNS 5.5.5.1
+         hostname WEB-R 
 ```
-
 
 
 #### ISP
@@ -125,10 +136,12 @@ apt install -y network-manager bind9 chrony
 ```
 
 ```debian
-nmcli connection show
-```
+   nmtui int WiredConnection 1 (ens192) ip 4.4.4.1/24
+         int WiredConnection 2 (ens224) ip 5.5.5.1/24 
+         int WiredConnection 3 (ens256) ip 3.3.3.1/24 
 
-```debian
+         hostname RTR-L
+```
 nmcli connection modify Wired\ connection\ 1 conn.autoconnect yes conn.interface-name ens192 ipv4.method manual ipv4.addresses '3.3.3.1/24'
 nmcli connection modify Wired\ connection\ 2 conn.autoconnect yes conn.interface-name ens224 ipv4.method manual ipv4.addresses '4.4.4.1/24'
 nmcli connection modify Wired\ connection\ 3 conn.autoconnect yes conn.interface-name ens256 ipv4.method manual ipv4.addresses '5.5.5.1/24'
