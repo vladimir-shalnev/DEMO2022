@@ -109,7 +109,7 @@ apt install -y network-manager
 apt-cdrom add
 apt install -y network-manager
 ```
-debian
+```debian
    nmtui int WiredConnection 1 (ens192) ip 192.168.100.100/24, gateway 192.168.100.254, DNS 4.4.4.1
          hostname WEB-L 
 
@@ -122,6 +122,7 @@ debian
 ```debian
 apt-cdrom add
 apt install -y network-manager
+```
 ```
    nmtui int WiredConnection 1 (ens192) ip 127.16.100.100/24, gateway 127.16.100.254, DNS 5.5.5.1
          hostname WEB-R 
@@ -140,24 +141,8 @@ apt install -y network-manager bind9 chrony
          int WiredConnection 2 (ens224) ip 5.5.5.1/24 
          int WiredConnection 3 (ens256) ip 3.3.3.1/24 
 
-         hostname RTR-L
+         hostname ISP
 ```
-nmcli connection modify Wired\ connection\ 1 conn.autoconnect yes conn.interface-name ens192 ipv4.method manual ipv4.addresses '3.3.3.1/24'
-nmcli connection modify Wired\ connection\ 2 conn.autoconnect yes conn.interface-name ens224 ipv4.method manual ipv4.addresses '4.4.4.1/24'
-nmcli connection modify Wired\ connection\ 3 conn.autoconnect yes conn.interface-name ens256 ipv4.method manual ipv4.addresses '5.5.5.1/24'
-```
-
-
-
-
-#### CLI
-
-```powershell
-$GetIndex = Get-NetAdapter
-New-NetIPAddress -InterfaceIndex $GetIndex.ifIndex -IPAddress 3.3.3.10 -PrefixLength 24 -DefaultGateway 3.3.3.1
-Set-DnsClientServerAddress -InterfaceIndex $GetIndex.ifIndex -ServerAddresses ("3.3.3.1")
-```
-
 
 
 ### 4.  Обеспечьте ВМ дополнительными дисками, если таковое необходимо в соответствии с Таблицей 1;
