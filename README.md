@@ -62,15 +62,25 @@ apt-cdrom add
 apt install -y network-manager
 ```
 ```debian
-   nmtui int ens192 (ip 4.4.4.100/24,)
-         int ens224 (192.168.100.254/24 gateway ) 
+   nmtui int WiredConnection 1 (ens192) ip 4.4.4.100/24,gateway 4.4.4.1
+         int WiredConnection 2 (ens224) ip 192.168.100.254/24 DNS 192.168.100.200 
          hostname RTR-L 
 ```
 
 
 #### RTR-R
 
+подключить DVD debian-11.2.0-amd64-DVD-1.iso
 
+```debian
+apt-cdrom add
+apt install -y network-manager
+```
+```debian
+   nmtui int WiredConnection 1 (ens192) ip 4.4.4.100/24,gateway 4.4.4.1
+         int WiredConnection 2 (ens224) ip 192.168.100.254/24 DNS 192.168.100.200 
+         hostname RTR-L 
+```
 
 
 #### SRV
