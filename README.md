@@ -25,11 +25,11 @@
 
 |Name VM         |ОС                  |RAM             |CPU             |IP                    |Additionally                       |
 |  ------------- | -------------      | -------------  |  ------------- |  -------------       |  -------------                    |  
-|RTR-L           |Debian 11/CSR       |2 GB            |2/4             |4.4.4.100/24          |                                   |
+|RTR-L           |Debian 11           |2 GB            |2               |4.4.4.100/24          |                                   |
 |                |                    |                |                |192.168.100.254/24    |                                   |
-|RTR-R           |Debian 11/CSR       |2 GB            |2/4             |5.5.5.100/24          |                                   |
+|RTR-R           |Debian 11           |2 GB            |2               |5.5.5.100/24          |                                   |
 |                |                    |                |                |172.16.100.254 /24    |                                   |
-|SRV             |Debian 11/Win 2019  |2 GB /4 GB      |2/4             |192.168.100.200/24    |Доп диски 2 шт по 5 GB             |
+|SRV             |Debian 11           |2 GB            |2               |192.168.100.200/24    |Доп диски 2 шт по 5 GB             |
 |WEB-L           |Debian 11           |2 GB            |2               |192.168.100.100/24    |                                   |
 |WEB-R           |Debian 11           |2 GB            |2               |172.16.100.100/24     |                                   |
 |ISP             |Debian 11           |2 GB            |2               |4.4.4.1/24            |                                   |
@@ -48,29 +48,21 @@
 
 #### RTR-L
 
-```cisco
-en
-conf t
-hostname RTR-L
-do wr
+```debian
+hostnamectl set-hostname RTR-L
 ```
-
 
 #### RTR-R
 
-```cisco
-en
-conf t
-hostname RTR-R
-do wr
+```debian
+hostnamectl set-hostname RTR-R
 ```
 
 #### SRV
 
-```powershell
-Rename-Computer -NewName SRV
+```debian
+hostnamectl set-hostname SRV
 ```
-
 
 #### WEB-L
 
@@ -106,19 +98,19 @@ Rename-Computer -NewName CLI
 
 ### 3.  Адресация должна быть выполнена в соответствии с Таблицей 1;
 #### RTR-L
-```cisco
-int gi 1
-ip address 4.4.4.100 255.255.255.0
-no sh
+
+подключить DVD
+
+```debian
+apt-cdrom add
+apt install -y network-manager
+```
+```debian
+nmtui int (ip 4.4.4.100/24)
+      int (192.168.100.254/24) 
 ```
 
-```cisco
-int gi 2
-ip address 192.168.100.254 255.255.255.0
-no sh
-end
-wr
-```
+
 
 
 
