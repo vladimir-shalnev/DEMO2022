@@ -45,48 +45,7 @@
 
 
 ### 2.  Имена хостов в созданных ВМ должны быть установлены в соответствии со схемой.
-
-#### RTR-L
-
-```debian
-hostnamectl set-hostname RTR-L
-```
-
-#### RTR-R
-
-```debian
-hostnamectl set-hostname RTR-R
-```
-
-#### SRV
-
-```debian
-hostnamectl set-hostname SRV
-```
-
-#### WEB-L
-
-```debian
-hostnamectl set-hostname WEB-L
-```
-
-
-
-#### WEB-R
-
-```debian
-hostnamectl set-hostname WEB-R
-```
-
-
-
-#### ISP
-
-```debian
-hostnamectl set-hostname ISP
-```
-
-
+### 3.  Адресация должна быть выполнена в соответствии с Таблицей 1;
 
 #### CLI
 
@@ -94,54 +53,29 @@ hostnamectl set-hostname ISP
 Rename-Computer -NewName CLI
 ```
 
-
-
-### 3.  Адресация должна быть выполнена в соответствии с Таблицей 1;
 #### RTR-L
 
-подключить DVD
+подключить DVD debian-11.2.0-amd64-DVD-1.iso
 
 ```debian
 apt-cdrom add
 apt install -y network-manager
 ```
 ```debian
-nmtui int (ip 4.4.4.100/24)
-      int (192.168.100.254/24) 
+   nmtui int ens192 (ip 4.4.4.100/24,)
+         int ens224 (192.168.100.254/24 gateway ) 
+         hostname RTR-L 
 ```
-
-
-
 
 
 #### RTR-R
 
-```cisco
-int gi 1
-ip address 5.5.5.100 255.255.255.0
-no sh
-```
 
-```cisco
-int gi 2
-ip address 172.16.100.254 255.255.255.0
-no sh
-end
-wr
-```
 
 
 #### SRV
 
-```powershell
-$GetIndex = Get-NetAdapter
-New-NetIPAddress -InterfaceIndex $GetIndex.ifIndex -IPAddress 192.168.100.200 -PrefixLength 24 -DefaultGateway 192.168.100.254
-Set-DnsClientServerAddress -InterfaceIndex $GetIndex.ifIndex -ServerAddresses ("192.168.100.200","4.4.4.1")
-```
 
-```powershell
-Set-NetFirewallRule -DisplayGroup "File And Printer Sharing" -Enabled True -Profile Any
-```
 
 
 #### WEB-L
@@ -153,7 +87,8 @@ apt install -y network-manager
 
 ```debian
 nmcli connection show
-nmcli connection modify Wired\ connection\ 1 conn.autoconnect yes conn.interface-name ens192 ipv4.method manual ipv4.addresses '192.168.100.100/24' ipv4.dns 192.168.100.200 ipv4.gateway 192.168.100.254
+nmcli connection modify Wired\ connection\ 1 conn.autoconnect yes conn.interface-name ens192 ipv4.method manual 
+ipv4.addresses '192.168.100.100/24' ipv4.dns 192.168.100.200 ipv4.gateway 192.168.100.254
 ```
 
 
