@@ -77,8 +77,8 @@ apt-cdrom add
 apt install -y network-manager
 ```
 ```debian
-   nmtui int WiredConnection 1 (ens192) ip 4.4.4.100/24,gateway 4.4.4.1
-         int WiredConnection 2 (ens224) ip 192.168.100.254/24 DNS 192.168.100.200 
+   nmtui int WiredConnection 1 (ens192) ip 5.5.5.100/24,gateway 5.5.51
+         int WiredConnection 2 (ens224) ip 172.16.20.100/24 DNS 
          hostname RTR-L 
 ```
 
